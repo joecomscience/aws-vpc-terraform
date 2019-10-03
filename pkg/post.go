@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"crypto/tls"
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -25,7 +24,7 @@ type PostItem struct {
 	Barcode  []string `json:"barcode"`
 }
 
-type ResponseItems struct {
+type responseItems struct {
 	Response struct {
 		Items map[string][]struct {
 			Barcode             string `json:"barcode"`
@@ -40,7 +39,14 @@ type ResponseItems struct {
 			ReceiverName        string `json:"receiver_name,omitempty"`
 			Signature           string `json:"signature,omitempty"`
 		} `json:"items"`
+		TrackCount struct {
+			TrackDate       string `json:"track_date"`
+			CountNumber     int    `json:"count_number"`
+			TrackCountLimit int    `json:"track_count_limit"`
+		} `json:"track_count"`
 	} `json:"response"`
+	Message string `json:"message"`
+	Status  bool   `json:"status"`
 }
 
 type Post struct {
@@ -72,14 +78,12 @@ func (p *Post) GetToken() {
 	}
 
 	p.Token = "Token " + t.Token
-
-	fmt.Println(p.Token)
 }
 
-func (p *Post) GetItems(item PostItem) (error, ResponseItems) {
+func (p *Post) GetItems(item PostItem) (*responseItems, error) {
 	url := os.Getenv("POST_URL") + "/post/api/v1/track"
 	value, _ := json.Marshal(item)
-	res := ResponseItems{}
+	res := responseItems{}
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
@@ -91,14 +95,13 @@ func (p *Post) GetItems(item PostItem) (error, ResponseItems) {
 
 	r, err := c.Do(req)
 	if err != nil {
-		return err, res
+		return nil, err
 	}
 	defer r.Body.Close()
 
-
 	if err := json.NewDecoder(r.Body).Decode(&res); err != nil {
 		log.Printf("err: %s \n", err)
-		return err, res
+		return nil, err
 	}
-	return nil, res
+	return &res, nil
 }
