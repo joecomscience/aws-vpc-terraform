@@ -20,7 +20,7 @@ func (l *Line) Send() error {
 
 	r, _ := http.NewRequest("POST", os.Getenv("LINE_URL"), bytes.NewBufferString(b.Encode()))
 	r.Header.Add("Content-Type", "application/json")
-	r.Header.Add("Autherization", token)
+	r.Header.Add("Authorization", token)
 
 	_, err := c.Do(r)
 	if err != nil {
