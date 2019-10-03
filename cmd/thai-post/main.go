@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"log"
 	"net/http"
 	"os"
@@ -61,7 +62,14 @@ func statusHandler(w http.ResponseWriter, r *http.Request) {
 	postItem := pkg.PostItem{"all", "TH", []string{"EY145587896TH", "RC338848854TH"}}
 
 	post.GetToken()
-	post.GetItems(postItem)
+	item, err := post.GetItems(postItem)
+	if err != nil {
+		log.Printf("Get tracking error: %s\n", err)
+		w.WriteHeader(http.StatusInternalServerError)
+	}
+
+	res, _ := json.Marshal(item)
 
 	w.WriteHeader(http.StatusOK)
+	_, _ = w.Write(res)
 }
