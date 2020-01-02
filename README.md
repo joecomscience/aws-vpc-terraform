@@ -1,1 +1,1 @@
-# thai-post-line-notify
+# Jenkins shared libs 
