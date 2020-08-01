@@ -13,6 +13,6 @@ def SonarScan(projectKey = null, projectName = null) {
         mvn sonar:sonar \
           -Dsonar.projectKey=${projectKey} \
           -Dsonar.projectName=${projectName} \
-          -Dsonar.host.url=http://localhost:9000
+          -Dsonar.host.url=http://sonarqube:9000
     """
 }
