@@ -10,9 +10,9 @@ def InstallDependency() {
 
 def SonarScan(projectKey = null, projectName = null) {
     sh """
-        mvn admin:admin \
+        mvn sonar:sonar \
           -Dsonar.projectKey=${projectKey} \
           -Dsonar.projectName=${projectName} \
-          -Dsonar.host.url=http://localhost:9000 \
+          -Dsonar.host.url=http://localhost:9000
     """
 }
