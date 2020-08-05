@@ -10,9 +10,9 @@ def InstallDependency() {
 
 def SonarScan(projectKey = null, projectName = null) {
     sh """
-        mvn sonar:sonar \
+        mvn -X sonar:sonar \
           -Dsonar.projectKey=${projectKey} \
           -Dsonar.projectName=${projectName} \
-          -Dsonar.host.url=http://sonarqube:9000
+          -Dsonar.host.url=http://host.docker.internal:9000
     """
 }
