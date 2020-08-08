@@ -13,7 +13,7 @@ def Scan(projectKey = null, projectName = null) {
     }
 
     timeout(time: 1, unit: 'HOURS') {
-        def qg = waitForQualityGate(webhookSecretId: "${SONAR_WEBHOOK_SECRET}")
+        def qg = waitForQualityGate(webhookSecretId: "joewalker")
         if (qg.status != 'OK') {
             error "Pipeline aborted due to quality gate failure: ${qg.status}"
         }
