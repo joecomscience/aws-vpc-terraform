@@ -7,7 +7,8 @@ class Maven implements Serializable {
     }
 
     void Build() {
-        this.steps.sh "mvn clean package"
+        steps.sh "echo '--call maven build---'"
+        steps.sh "mvn clean package"
     }
 
     void InstallDependency() {
