@@ -1,6 +1,6 @@
 package com.joewalker.build_tools
 
-class Maven {
+class Maven implements Serializable {
 
     void Build() {
         sh "mvn clean package"
