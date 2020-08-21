@@ -1,3 +1,5 @@
+package com.joewalker.artifactory
+
 class Nexus {
     public String GroupID;
     public String Version;
@@ -6,12 +8,14 @@ class Nexus {
     public String ArtifactFile;
     public String Extension = "jar";
 
+    def steps;
+
     void UploadArtifactory() {
         String nexusHost = NEXUS_HOST;
         String nexusCredential = "nexus";
         String classifier = "";
 
-        nexusArtifactUploader(
+        this.steps.nexusArtifactUploader(
                 nexusVersion: "nexus3",
                 protocol: "http",
                 nexusUrl: nexusHost,
