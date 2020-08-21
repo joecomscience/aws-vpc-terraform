@@ -1,3 +1,5 @@
+package com.joewalker.build_tools
+
 class Maven {
 
     void Build() {
