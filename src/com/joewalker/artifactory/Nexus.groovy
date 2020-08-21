@@ -11,7 +11,7 @@ class Nexus {
     def steps;
 
     void UploadArtifactory() {
-        String nexusHost = NEXUS_HOST;
+        String nexusHost = System.getenv("NEXUS_HOST");
         String nexusCredential = "nexus";
         String classifier = "";
 
