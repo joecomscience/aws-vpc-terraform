@@ -7,26 +7,24 @@ class Nexus {
     public String ArtifactID;
     public String ArtifactFile;
     public String Extension = "jar";
-
-    def steps;
+    public String Classifire = "";
+    private String CredentialId = "nexus";
+    private String Host = this.global.NEXUS_HOST;
+    def global;
 
     void UploadArtifactory() {
-        String nexusHost = this.steps.NEXUS_HOST;
-        String nexusCredential = "nexus";
-        String classifier = "";
-
-        this.steps.nexusArtifactUploader(
+        this.global.nexusArtifactUploader(
                 nexusVersion: "nexus3",
                 protocol: "http",
-                nexusUrl: nexusHost,
+                nexusUrl: this.Host,
                 groupId: this.GroupID,
                 version: this.Version,
                 repository: this.Repository,
-                credentialsId: nexusCredential,
+                credentialsId: this.CredentialId,
                 artifacts: [
                         [
                                 artifactId: this.ArtifactID,
-                                classifier: classifier,
+                                classifier: this.Classifire,
                                 file      : this.ArtifactFile,
                                 type      : this.Extension,
                         ]
