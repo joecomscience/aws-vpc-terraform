@@ -8,8 +8,8 @@ class DependencyCheck {
     def steps;
 
     void Scan() {
-        String proxyServer = System.getenv("PROXY_SERVER");
-        String proxyport = System.getenv("PROXY_PORT");
+        String proxyServer = this.steps.PROXY_SERVER;
+        String proxyport = this.steps.PROXY_PORT;
         String reportFile = this.ProjectDir + "/dependency-check-report.html"
 
         if (this.EnableProxy) {

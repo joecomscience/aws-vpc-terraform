@@ -3,8 +3,8 @@ package com.joewalker.security
 class SonarQube {
     public String ProjectKey;
     public String ProjectName;
-    public String Token = System.getenv("SONAR_TOEN");
-    public String Host = System.getenv("SONAR_HOST");
+    public String Token = this.steps.SONAR_TOEN;
+    public String Host = this.steps.SONAR_HOST;
     public String CredentialID = "sonar";
 
     def steps;

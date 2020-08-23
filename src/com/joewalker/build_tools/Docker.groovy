@@ -9,7 +9,7 @@ class Docker {
 
     void BuildJava() {
         boolean isJarFileNotEmpty = this.JarFileLocation != "" && this.JarFileLocation != null
-        String dockerRegistryHost = System.getenv("DOCKER_PRIVATE_REGISTRY")
+        String dockerRegistryHost = this.steps.DOCKER_PRIVATE_REGISTRY;
 
         if (isJarFileNotEmpty) {
             this.steps.sh(
