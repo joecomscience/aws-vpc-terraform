@@ -4,29 +4,28 @@ class Docker {
     public String JarFileLocation;
     public String DockerImageOutPut;
     public String DockerImageBuildVersion = "latest";
-
-    def steps;
+    private String RegistryHost = this.global.DOCKER_PRIVATE_REGISTRY;
+    def global;
 
     void BuildJava() {
         boolean isJarFileNotEmpty = this.JarFileLocation != "" && this.JarFileLocation != null
-        String dockerRegistryHost = this.steps.DOCKER_PRIVATE_REGISTRY;
 
         if (isJarFileNotEmpty) {
-            this.steps.sh(
+            this.global.sh(
                     """
                         cp ${this.JarFileLocation} app.jar
                         
                         docker \
                             build \
-                            -t ${dockerRegistryHost}/${this.DockerImageOutPut}:${this.DockerImageBuildVersion}
+                            -t ${this.RegistryHost}/${this.DockerImageOutPut}:${this.DockerImageBuildVersion}
                     """
             )
         } else {
-            this.steps.sh(
+            this.global.sh(
                     """
                         docker \
                             build \
-                            -t ${dockerRegistryHost}/${this.DockerImageOutPut}:${this.DockerImageBuildVersion}
+                            -t ${this.RegistryHost}/${this.DockerImageOutPut}:${this.DockerImageBuildVersion}
                     """
             )
         }
